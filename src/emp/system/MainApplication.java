@@ -17,6 +17,7 @@ public class MainApplication {
 	private void startMainOperations() {
 		menu();
 		do {
+			System.out.print("Enter Command:");
 			try {
 				String opType = sc.nextLine().toUpperCase();
 				switch (opType) {
@@ -24,6 +25,9 @@ public class MainApplication {
 					System.exit(0);
 				case "ADD":
 					insertEmp();
+					break;
+				case "ADDALL":
+					addInBulk();
 					break;
 				case "VIEW":
 					viewEmp();
@@ -125,7 +129,16 @@ public class MainApplication {
 	}
 	private void viewAllEmp() {
 		System.out.println("All Employee Details");
-		System.out.println(data.fetchAll());
+		data.fetchAll().forEach((key,value)->{
+			System.out.println("*******************************************************************");
+			System.out.println("Employee ID:"+key);
+			System.out.println("Employee Name:"+value.getName());
+			System.out.println("Employee Age:"+value.getAge());
+			System.out.println("Employee Email:"+value.getEmail());
+			System.out.println("Employee Salary:"+value.getSalary());
+			System.out.println("*******************************************************************");
+		});
+		System.out.println();
 	}
 
 	private void viewEmp() {
@@ -133,8 +146,13 @@ public class MainApplication {
 		try {
 			int id = Integer.valueOf(sc.nextLine());
 			Employee emp = data.fetchEmployee(id);
-			if (emp != null)
-				System.out.println("Employee Details:" + emp);
+			System.out.println("Employee Details for ID: "+id);
+			System.out.println("*******************************************************************");
+			System.out.println("Employee Name:"+emp.getName());
+			System.out.println("Employee Age:"+emp.getAge());
+			System.out.println("Employee Email:"+emp.getEmail());
+			System.out.println("Employee Salary:"+emp.getSalary());
+			System.out.println("*******************************************************************");
 		} catch (Exception ex) {
 			System.out.println("Invalid Input, Please try again...");
 		}
@@ -148,14 +166,14 @@ public class MainApplication {
 		emp.setName(sc.nextLine());
 		System.out.print("Enter Email Id:");
 		emp.setEmail(sc.nextLine());
-		System.out.print("Enter Age:");
+		System.out.print("Enter Age (*only Integer):");
 		try {
 			emp.setAge(Integer.valueOf(sc.nextLine()));
 		} catch (Exception ex) {
 			System.out.println("Input is invalid, please try again");
 			return;
 		}
-		System.out.print("Enter Salary(float value not allowed:");
+		System.out.print("Enter Salary(*only Integer):");
 		try {
 			emp.setSalary(Long.valueOf(sc.nextLine()));
 		} catch (Exception ex) {
@@ -164,11 +182,15 @@ public class MainApplication {
 		}
 		data.insertEmployee(emp);
 	}
+	
+	private void addInBulk() {
+		
+	}
 
 	private void menu() {
-		System.out.println("Operation:\n" + "Press 'ADD' To Insert a new Employee\n"
-				+ "Press 'VIEW' To View the Employee Details\n" + "Press 'VALL' To View All Employees Details\n"
-				+ "Press 'UPDATE' To Update Employee Details\n" + "Press 'DEL' To Delete Employee Details\n"
-				+ "Press 'MENU' To List Down Menu\n" + "Press 'EXIT' To Exist From System");
+		System.out.println("Operation:\n" + "Command 'ADD' - To Insert a new Employee\n"
+				+ "Command 'VIEW' - To View the Employee Details\n" + "Command 'VALL' - To View All Employees Details\n"
+				+ "Command 'UPDATE' - To Update Employee Details\n" + "Command 'DEL' - To Delete Employee Details\n"
+				+ "Command 'MENU' - To List Down Operations\n" + "Command 'EXIT' - To Exist From System");
 	}
 }
