@@ -18,6 +18,14 @@ public class DataSource {
 		System.out.println("Insertion Completed...");
 	}
 	
+	public void insertEmployee(int id,Employee employee) {
+		System.out.println("Insertion Started...");
+		dataSource.put(id,employee);
+		System.out.println("********** Data Inserted Successfully **********");
+		System.out.println("Employee id is:"+id);
+		System.out.println("Insertion Completed...");
+	}
+	
 	public Employee fetchEmployee(Integer empId) {
 		System.out.println("Fetching Started...");
 		if(dataSource.containsKey(empId)) {

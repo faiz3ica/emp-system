@@ -1,5 +1,7 @@
 package emp.system.model;
 
+import java.util.Objects;
+
 public class Employee {
 	private String name;
 	private int age;
@@ -43,7 +45,24 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "Employee [name=" + name + ", age=" + age + ", email=" + email + ", salary=" + salary + "]";
+		return "["+ name + "," + age + "," + email + "," + salary + "]";
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(age, email, name, salary);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return age == other.age && Objects.equals(email, other.email) && Objects.equals(name, other.name)
+				&& salary == other.salary;
+	}
+	
 	
 }
